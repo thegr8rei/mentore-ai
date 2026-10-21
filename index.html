@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大学編入 AI模擬面接</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <h1>大学編入 AI模擬面接</h1>
+    <p>自分の言葉で伝える練習を、ここから。</p>
+  </header>
+
+  <main class="container">
+    <!-- 画面1：面接前の設定 -->
+    <section id="setup-screen" class="screen"
+             aria-labelledby="setup-heading">
+      <h2 id="setup-heading" tabindex="-1">面接の設定</h2>
+      <p>志望先と練習時間を入力してください。</p>
+
+      <form id="setup-form">
+        <div class="form-field">
+          <label for="university">志望大学名（必須）</label>
+          <input
+            id="university"
+            name="university"
+            type="text"
+            placeholder="例：○○大学"
+            maxlength="100"
+            required
+          >
+        </div>
+
+        <div class="form-field">
+          <label for="department">志望学部・学科名（必須）</label>
+          <input
+            id="department"
+            name="department"
+            type="text"
+            placeholder="例：工学部 都市工学科"
+            maxlength="100"
+            required
+          >
+        </div>
+
+        <div class="form-field">
+          <label for="duration">面接時間</label>
+          <select id="duration" name="duration">
+            <option value="5">5分</option>
+            <option value="10" selected>10分</option>
+            <option value="15">15分</option>
+            <option value="20">20分</option>
+            <option value="30">30分</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="speech-enabled">
+            <input id="speech-enabled" type="checkbox" checked>
+            面接官の質問を音声で読み上げる
+          </label>
+          <p class="help-text">
+            音声が使えない場合も、質問は文字で確認できます。
+          </p>
+        </div>
+
+        <p class="notice">
+          現在は画面と基本動作を確認するデモ版です。
+          AIによる質問生成・評価は後の工程で追加します。
+        </p>
+
+        <button id="start-button" type="submit" disabled>
+          面接開始（準備中）
+        </button>
+      </form>
+    </section>
+
+    <!-- 画面2：面接 -->
+    <section id="interview-screen" class="screen"
+             aria-labelledby="interview-heading" hidden>
+      <h2 id="interview-heading" tabindex="-1">模擬面接</h2>
+
+      <p id="interview-target"></p>
+      <p>
+        残り時間：
+        <span id="remaining-time" role="timer">10:00</span>
+      </p>
+
+      <div class="question-card">
+        <h3>面接官からの質問</h3>
+        <p id="question-text" aria-live="polite"></p>
+        <button id="replay-button" type="button">
+          質問をもう一度聞く
+        </button>
+      </div>
+
+      <form id="answer-form">
+        <label for="answer-text">あなたの回答</label>
+        <textarea
+          id="answer-text"
+          rows="6"
+          maxlength="5000"
+          placeholder="音声入力、または文字入力で回答してください。"
+        ></textarea>
+
+        <div class="button-group">
+          <button id="microphone-button" type="button">
+            音声入力を開始
+          </button>
+          <button id="submit-answer-button" type="submit">
+            回答を送信
+          </button>
+        </div>
+      </form>
+
+      <p id="interview-status" role="status"></p>
+
+      <button id="finish-button" type="button">
+        面接を終了する
+      </button>
+    </section>
+
+    <!-- 画面3：面接結果 -->
+    <section id="result-screen" class="screen"
+             aria-labelledby="result-heading" hidden>
+      <h2 id="result-heading" tabindex="-1">練習の振り返り</h2>
+
+      <p id="result-summary"></p>
+
+      <section aria-labelledby="feedback-heading">
+        <h3 id="feedback-heading">フィードバック</h3>
+        <p id="feedback-text">
+          デモ版ではAIによる評価は行いません。
+          質問と回答を見返して練習を振り返ります。
+        </p>
+      </section>
+
+      <section aria-labelledby="history-heading">
+        <h3 id="history-heading">質問と回答の記録</h3>
+        <div id="answer-history"></div>
+      </section>
+
+      <button id="restart-button" type="button">
+        設定画面に戻る
+      </button>
+    </section>
+
+    <noscript>
+      <p>このアプリを使用するにはJavaScriptを有効にしてください。</p>
+    </noscript>
+  </main>
+
+  <footer class="site-footer">
+    <p>大学編入学試験のための面接練習アプリ</p>
+  </footer>
+</body>
+</html>
